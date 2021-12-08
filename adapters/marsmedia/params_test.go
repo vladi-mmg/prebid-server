@@ -54,5 +54,4 @@ var invalidParams = []string{
 	`9`,
 	`1.2`,
 	`[]`,
-	`{}`,
 }

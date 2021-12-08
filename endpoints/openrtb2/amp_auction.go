@@ -313,8 +313,7 @@ func (deps *endpointDeps) parseAmpRequest(httpRequest *http.Request) (req *openr
 	}
 
 	// At this point, we should have a valid request that definitely has Targeting and Cache turned on
-
-	e = deps.validateRequest(&openrtb_ext.RequestWrapper{BidRequest: req})
+	e = deps.validateRequest(&openrtb_ext.RequestWrapper{BidRequest: req}, true)
 	errs = append(errs, e...)
 	return
 }
@@ -348,7 +347,7 @@ func (deps *endpointDeps) loadRequestJSONForAmp(httpRequest *http.Request) (req 
 		return
 	}
 
-	if deps.cfg.GenerateRequestID {
+	if deps.cfg.GenerateRequestID || req.ID == "{{UUID}}" {
 		newBidRequestId, err := deps.uuidGenerator.Generate()
 		if err != nil {
 			errs = []error{err}
